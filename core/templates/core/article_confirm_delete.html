@@ -1,0 +1,15 @@
+{% extends "core/base.html" %}
+{% block title %}Xoá bài{% endblock %}
+
+{% block content %}
+<div class="form-container">
+  <h2 style="text-align:center; margin-bottom:1.5rem;">Xoá bài viết</h2>
+  <p style="text-align:center; margin-bottom:2rem;">
+    Bạn chắc chắn muốn xoá: <strong>{{ a.title }}</strong> ?
+  </p>
+  <form method="post" style="text-align:center;">
+    {% csrf_token %}
+    <button type="submit" class="form-button">Xoá</button>
+  </form>
+</div>
+{% endblock %}

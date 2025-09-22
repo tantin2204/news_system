@@ -1,0 +1,22 @@
+{% extends "core/base.html" %}
+{% block title %}{{ a.title }}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="article-header">
+    <h1 class="article-title">{{ a.title }}</h1>
+    <div class="article-meta">
+      <span>Đăng ngày {{ a.published_at|date:"d/m/Y H:i" }}</span>
+      <span>Danh mục: 
+        <a href="{% url 'by_category' a.category.slug %}">{{ a.category.name }}</a>
+      </span>
+    </div>
+  </div>
+
+  <div class="article-content">
+    <p><strong>Mô tả:</strong> {{ a.short_desc }}</p>
+    <hr style="margin: 2rem 0;">
+    {{ a.content|linebreaks }}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends "core/admin_base.html" %}
+{% block admin_content %}
+<h2>Dashboard Tổng quan</h2>
+
+<div class="admin-stats">
+  <div class="news-card stat-card">
+    <h3>{{ stats.total_articles }}</h3>
+    <p>Tổng bài viết</p>
+  </div>
+  <div class="news-card stat-card">
+    <h3>{{ stats.total_users }}</h3>
+    <p>Người dùng</p>
+  </div>
+  <div class="news-card stat-card">
+    <h3>{{ stats.total_categories }}</h3>
+    <p>Danh mục</p>
+  </div>
+</div>
+
+<!-- Pending articles -->
+<div class="news-card recent-activity" style="margin-top:2rem;">
+  <h3>Bài chờ duyệt</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Tiêu đề</th>
+        <th>Tác giả</th>
+        <th>Ngày đăng</th>
+        <th>Hành động</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for a in pending %}
+      <tr>
+        <td>{{ a.title }}</td>
+        <td>{{ a.author.username }}</td>
+        <td>{{ a.published_at|date:"d/m/Y H:i" }}</td>
+        <td>
+          <a href="{% url 'approve_article' a.id %}" class="form-button">Duyệt</a>
+          <a href="{% url 'reject_article' a.id %}" class="form-button" style="background:#dc3545;">Từ chối</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="4">Không có bài nào chờ duyệt.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!-- Recent activity -->
+<div class="news-card recent-activity" style="margin-top:2rem;">
+  <h3>Hoạt động gần đây</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Thời gian</th>
+        <th>Tiêu đề</th>
+        <th>Danh mục</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for a in recent %}
+      <tr>
+        <td>{{ a.published_at|date:"d/m/Y H:i" }}</td>
+        <td><a href="{% url 'article_detail' a.id %}">{{ a.title }}</a></td>
+        <td>{{ a.category.name }}</td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="3">Chưa có hoạt động nào.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

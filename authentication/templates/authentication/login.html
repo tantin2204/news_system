@@ -1,0 +1,24 @@
+{% extends "core/base.html" %}
+{% block title %}Đăng nhập{% endblock %}
+{% block content %}
+<div class="form-container">
+  <h2 style="text-align:center; margin-bottom:1.5rem;">Đăng nhập</h2>
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label class="form-label">Tên đăng nhập</label>
+      <input type="text" name="username" class="form-input" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Mật khẩu</label>
+      <input type="password" name="password" class="form-input" required>
+    </div>
+    <div class="form-group" style="text-align:center;">
+      <button type="submit" class="form-button">Đăng nhập</button>
+    </div>
+  </form>
+  <p style="text-align:center;">Chưa có tài khoản?
+    <a href="{% url 'register' %}">Đăng ký ngay</a>
+  </p>
+</div>
+{% endblock %}

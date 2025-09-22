@@ -1,0 +1,52 @@
+{% extends "core/admin_base.html" %}
+{% block title %}Quản lý Bài viết{% endblock %}
+
+{% block admin_content %}
+<h2>Quản lý Bài viết</h2>
+
+<!-- Bộ lọc -->
+<div class="form-container" style="margin-bottom:2rem;">
+  <form method="get" style="display:flex; gap:1rem; align-items:center;">
+    <label class="form-label">Danh mục:</label>
+    <select name="category" class="form-input" style="max-width:250px;">
+      <option value="">-- Tất cả --</option>
+      {% for c in categories %}
+        <option value="{{ c.id }}" {% if selected_category == c.id|stringformat:"s" %}selected{% endif %}>
+          {{ c.name }}
+        </option>
+      {% endfor %}
+    </select>
+    <button type="submit" class="form-button">Lọc</button>
+  </form>
+</div>
+
+<!-- Danh sách bài viết -->
+<div class="news-card recent-activity">
+  <table>
+    <thead>
+      <tr>
+        <th>Tiêu đề</th>
+        <th>Tác giả</th>
+        <th>Danh mục</th>
+        <th>Ngày đăng</th>
+        <th>Trạng thái</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for a in articles %}
+      <tr>
+        <td><a href="{% url 'article_detail' a.id %}">{{ a.title }}</a></td>
+        <td>{{ a.author.username }}</td>
+        <td>{{ a.category.name }}</td>
+        <td>{{ a.published_at|date:"d/m/Y H:i" }}</td>
+        <td>{{ a.get_status_display }}</td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="5">Không có bài viết nào.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

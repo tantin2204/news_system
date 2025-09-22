@@ -1,0 +1,57 @@
+{% extends "core/base.html" %}
+{% block title %}Đăng ký{% endblock %}
+
+{% block content %}
+<div class="form-container">
+  <h2 style="text-align:center; margin-bottom:1.5rem;">Đăng ký tài khoản</h2>
+  <form method="post">
+    {% csrf_token %}
+
+    <div class="form-group">
+      <label class="form-label" for="id_username">Tên đăng nhập</label>
+      {{ form.username }}
+      {% if form.username.errors %}
+        <div style="color:red; font-size:0.9rem;">{{ form.username.errors }}</div>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="id_email">Email</label>
+      {{ form.email }}
+      {% if form.email.errors %}
+        <div style="color:red; font-size:0.9rem;">{{ form.email.errors }}</div>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="id_password1">Mật khẩu</label>
+      {{ form.password1 }}
+      {% if form.password1.errors %}
+        <div style="color:red; font-size:0.9rem;">{{ form.password1.errors }}</div>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="id_password2">Xác nhận mật khẩu</label>
+      {{ form.password2 }}
+      {% if form.password2.errors %}
+        <div style="color:red; font-size:0.9rem;">{{ form.password2.errors }}</div>
+      {% endif %}
+    </div>
+
+    <div class="form-group" style="text-align:center;">
+      <button type="submit" class="form-button">Đăng ký</button>
+    </div>
+  </form>
+
+  {% if form.non_field_errors %}
+    <div style="color:red; margin-top:1rem; text-align:center;">
+      {{ form.non_field_errors }}
+    </div>
+  {% endif %}
+
+  <p style="text-align:center; margin-top:1rem;">
+    Đã có tài khoản? <a href="{% url 'login' %}">Đăng nhập</a>
+  </p>
+</div>
+{% endblock %}

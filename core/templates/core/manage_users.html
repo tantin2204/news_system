@@ -1,0 +1,53 @@
+{% extends "core/admin_base.html" %}
+{% block title %}Quản lý Người dùng{% endblock %}
+
+{% block admin_content %}
+<h2>Quản lý Người dùng</h2>
+<div class="news-card recent-activity">
+  <table>
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Nhóm hiện tại</th>
+        <th>Gán quyền</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for u in users %}
+      <tr>
+        <td>{{ u.username }}</td>
+        <td>{{ u.email }}</td>
+        <td>
+          {% if u.is_staff %}
+            Admin
+          {% elif u.groups.all %}
+            {{ u.groups.all.0.name }}
+          {% else %}
+            (Chưa có)
+          {% endif %}
+        </td>
+        <td>
+          {% if u.is_staff %}
+            <em>Không thể thay đổi</em>
+          {% else %}
+            <form method="post" style="display:flex; gap:0.5rem;">
+              {% csrf_token %}
+              <input type="hidden" name="user_id" value="{{ u.id }}">
+              <select name="group_id" class="form-input">
+                {% for g in groups %}
+                  <option value="{{ g.id }}" {% if u.groups.all and u.groups.all.0.id == g.id %}selected{% endif %}>
+                    {{ g.name }}
+                  </option>
+                {% endfor %}
+              </select>
+              <button type="submit" class="form-button">Cập nhật</button>
+            </form>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

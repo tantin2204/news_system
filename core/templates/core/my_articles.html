@@ -1,0 +1,32 @@
+{% extends "core/base.html" %}
+{% block title %}Bài của tôi{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h2>Bài của tôi</h2>
+  <p style="margin: 1rem 0;">
+    <a href="{% url 'article_create' %}" class="form-button">+ Đăng tin mới</a>
+  </p>
+
+  <div class="news-grid">
+    {% for a in articles %}
+      <article class="news-card">
+        <div class="card-content">
+          <h3>
+            <a href="{% url 'article_detail' a.id %}" class="news-title">{{ a.title }}</a>
+          </h3>
+          <div class="news-meta">
+            <span>{{ a.published_at|date:"d/m/Y H:i" }}</span>
+          </div>
+          <div style="margin-top:1rem; font-size:0.9rem;">
+            <a href="{% url 'article_update' a.id %}" style="color:#007bff; text-decoration:none; margin-right:1rem;">✏️ Sửa</a>
+            <a href="{% url 'article_delete' a.id %}" style="color:#dc3545; text-decoration:none;">🗑 Xoá</a>
+          </div>
+        </div>
+      </article>
+    {% empty %}
+      <p>Chưa có bài.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
