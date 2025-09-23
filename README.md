@@ -56,6 +56,66 @@ Sao chép mã
 python manage.py runserver
 Mở trình duyệt: http://localhost:8000
 
+📂 Cấu trúc thư mục
+
+news_demo/                # thư mục gốc project
+│
+├── manage.py
+├── .env
+├── .gitignore
+│
+├── config/               # project config (settings, urls, wsgi, asgi)
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   ├── wsgi.py
+│   └── asgi.py
+│
+├── authentication/       # app authentication
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── forms.py
+│   ├── models.py
+│   ├── urls.py
+│   ├── views.py
+│   ├── signals.py
+│   ├── tests.py
+│   ├── migrations/
+│   ├── static/authentication/css/
+│   │   └── style.css
+│   └── templates/authentication/
+│       ├── login.html
+│       └── register.html
+│
+├── core/                 # app quản lý tin tức
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── urls.py
+│   ├── views.py
+│   ├── signals.py
+│   ├── tests.py
+│   ├── migrations/
+│   ├── static/core/css/
+│   │   └── style.css
+│   └── templates/core/
+│       ├── base.html
+│       ├── home.html
+│       ├── article_detail.html
+│       ├── article_form.html
+│       ├── article_confirm_delete.html
+│       ├── my_articles.html
+│       ├── by_category.html
+│       ├── manage_articles.html
+│       ├── manage_categories.html
+│       ├── manage_users.html
+│       ├── admin_base.html
+│       └── admin_dashboard.html
+│
+└── venv/ (hoặc .venv/)
+
 📂 Danh mục mẫu
 Thời sự
 Thể thao
